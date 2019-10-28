@@ -1,13 +1,73 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import '~antd/dist/antd.css';
+/**表格容器*/
+
+.tableBox {
+    width: 100%;
+    height: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/**表格工具*/
+
+.qurey {
+    width: 180px;
+    margin: 0px 20px;
+}
+
+/**表格设置*/
+
+.tableContent {
+    margin: 0px 20px;
+}
+
+.ant-table-tbody>tr>td {
+    padding: 5px 16px;
+}
+
+/**分页组件样式*/
+
+.formBox input {
+    width: 180px;
+}
+
+.ant-modal-footer {
+    text-align: center;
+}
+
+/* .ant-form-explain {
+    position: absolute;
+    top: 10px;
+    right: -150px;
+} */
+
+/**以下为编辑功能组件的样式*/
+
+.teacherDiv {
+    padding: 0px 40px;
+}
+
+.teacherDiv div {
+    margin: 5px 0px;
+}
+
+.studentDiv {
+    padding: 0px 40px;
+}
+
+.studentDiv div {
+    margin: 5px 0px;
+}
+
+.canvasDiv {
+    position: absolute;
+    top: 320px;
+}
+
+.canvas {
+    display: block;
+    margin: 10px;
+    border: 1px blue solid;
+}
+
+.refresh {
+    margin: 0px 400px;
 }
