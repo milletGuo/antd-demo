@@ -23,6 +23,12 @@
     padding: 5px 16px;
 }
 
+.operation {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 40%;
+}
+
 /**分页组件样式*/
 
 .formBox input {

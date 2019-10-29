@@ -29,7 +29,7 @@ class EditData extends React.Component {
         };
         return (
             <div>
-                <Modal title="编辑数据" visible={true} width={540} onCancel={this.handleCancel} footer={[<Button key="submit" onClick={this.handleOk}>确定</Button>]}>
+                <Modal title="编辑数据" visible={false} width={540} onCancel={this.handleCancel} footer={[<Button key="submit" onClick={this.handleOk}>确定</Button>]}>
                     <Form {...formItemLayout}>
                         <Form.Item label="姓名：">
                             {getFieldDecorator('name', {
