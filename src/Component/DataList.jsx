@@ -1,9 +1,27 @@
 import React from 'react';
-import { Table } from 'antd';
-import Button from 'antd/es/button';
+import { Button, Table } from 'antd';
 import '../index.css';
 
 class DataList extends React.Component {
+
+    /**
+     * 处理删除数据事件
+     * @param {number} dataIndex 数据索引
+     */
+    onHandleDelClick(dataIndex) {
+        console.log(dataIndex);
+        //this.props.delData(dataIndex);
+    }
+
+    /**
+     * 处理编辑数据事件
+     * @param {number} dataIndex 数据索引
+     */
+    onHandleEditClick(dataIndex) {
+        let data = [];
+        data = this.props.dataToShow.filter((item) => { return dataIndex === item.index });
+        this.props.editData("edit", data[0]);
+    }
 
     render() {
         const { Column } = Table;
@@ -24,8 +42,8 @@ class DataList extends React.Component {
                         align="center"
                         render={(text, record) => (
                             <div className="operation">
-                                <Button key="edit">编辑</Button>
-                                <Button key="delete">删除</Button>
+                                <Button key="edit" onClick={this.onHandleEditClick.bind(this, record.index)} disabled={this.props.disabled}>编辑</Button>
+                                <Button key="delete" onClick={this.onHandleDelClick.bind(this, record.index)} disabled={this.props.disabled}>删除</Button>
                             </div>
                         )}
                     />
