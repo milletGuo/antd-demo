@@ -18,9 +18,23 @@ class DataTable extends React.Component {
     }
 
     /**
+     * 删除一条数据
+     * @param {number} index 需要删除的数据索引
+     */
+    delData(dataIndex) {
+        const dataLists = this.state.dataLists.slice();
+        dataLists.forEach(function (item, index) {
+            if (dataIndex === item.index) {
+                dataLists.splice(index, 1);
+            }
+        })
+        this.setState({ dataLists: dataLists, queryResult: dataLists });
+    }
+
+    /**
      * 显示EditData组件
      * @param {string} status 组件状态(新建，编辑)
-     * @param {Object} data  需要新建或编辑的数据
+     * @param {json} data  需要新建或编辑的数据
      */
     openDialog(status, data) {
         this.setState({
@@ -67,11 +81,20 @@ class DataTable extends React.Component {
         }
     }
 
+    /**
+     * 组件更新完成后，将最新的数据存储至localStorage中
+     * @param {Object} prevProps 之前的参数
+     * @param {Object} prevState 之前的状态
+     */
+    componentDidUpdate(prevProps, prevState) {
+        localStorage.setItem('data', JSON.stringify(this.state.dataLists));
+    }
+
     render() {
         return (
             <div className="tableBox" >
                 <TableTools data={this.state.dataLists} create={this.openDialog.bind(this)} query={this.updateData.bind(this)} />
-                <DataList dataToShow={this.state.queryResult} editData={this.openDialog.bind(this)} disabled={this.state.disabled} />
+                <DataList dataToShow={this.state.queryResult} editData={this.openDialog.bind(this)} delData={this.delData.bind(this)} disabled={this.state.disabled} />
                 <EditDataForm visible={this.state.visible} dataToEdit={this.state.dataToEdit} data={this.state.dataLists} status={this.state.status} close={this.closeDialog.bind(this)} submit={this.updateData.bind(this)} />
             </div>
         );

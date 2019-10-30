@@ -41,10 +41,16 @@ class EditData extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 if (values.role === "教师") {
+                    values.grade = values.teacher_grade;
                     values.courses = '';
+                    delete values["teacher_grade"];
+                    delete values["student_grade"];
                 } else {
                     values.isMaster = '';
+                    values.grade = values.student_grade;
                     values.courses = values.courses.join(' ');
+                    delete values["teacher_grade"];
+                    delete values["student_grade"];
                 }
                 data = values;
             }
@@ -69,6 +75,7 @@ class EditData extends React.Component {
             });
             this.props.submit("edit", dataLists);
         }
+        this.props.form.resetFields();
         this.props.close();
     }
 

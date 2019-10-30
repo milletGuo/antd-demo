@@ -29,51 +29,6 @@
     width: 40%;
 }
 
-/**分页组件样式*/
-
-.formBox input {
-    width: 180px;
-}
-
 .ant-modal-footer {
     text-align: center;
-}
-
-/* .ant-form-explain {
-    position: absolute;
-    top: 10px;
-    right: -150px;
-} */
-
-/**以下为编辑功能组件的样式*/
-
-.teacherDiv {
-    padding: 0px 40px;
-}
-
-.teacherDiv div {
-    margin: 5px 0px;
-}
-
-.studentDiv {
-    padding: 0px 40px;
-}
-
-.studentDiv div {
-    margin: 5px 0px;
-}
-
-.canvasDiv {
-    position: absolute;
-    top: 320px;
-}
-
-.canvas {
-    display: block;
-    margin: 10px;
-    border: 1px blue solid;
-}
-
-.refresh {
-    margin: 0px 400px;
 }

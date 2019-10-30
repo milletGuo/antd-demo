@@ -15,7 +15,7 @@ class TeacherInfo extends React.Component {
             <div style={{ display: this.props.display }}>
                 <Form {...formItemLayout}>
                     <Form.Item label="所在班级：">
-                        {getFieldDecorator('grade', {
+                        {getFieldDecorator('student_grade', {
                             initialValue: data.grade,
                         })(
                             <Input placeholder="请输入班级" />,
