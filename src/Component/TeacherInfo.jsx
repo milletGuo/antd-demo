@@ -23,7 +23,7 @@ class TeacherInfo extends React.Component {
                     </Form.Item>
                     <Form.Item label="班主任：">
                         {getFieldDecorator('isMaster', {
-                            initialValue: data.isMaster,
+                            initialValue: data.isMaster ? data.isMaster : '是',
                         })(
                             <Radio.Group>
                                 <Radio value="是">是</Radio>

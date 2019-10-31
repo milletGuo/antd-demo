@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Table, ConfigProvider } from 'antd';
+import { Modal, message, Button, Table, ConfigProvider } from 'antd';
 import zh_CN from 'antd/es/locale/zh_CN';
 import '../index.css';
 
@@ -10,26 +10,31 @@ class DataList extends React.Component {
      * @param {number} dataIndex 数据索引
      */
     onHandleDelClick(dataIndex) {
-        this.props.delData(dataIndex);
+        Modal.confirm({
+            title: '确定删除这条记录吗?',
+            onOk: () => {
+                this.props.delData(dataIndex);
+                message.success('删除成功');
+            },
+            onCancel: function () {
+                return;
+            },
+        });
     }
 
     /**
      * 处理编辑数据事件
      * @param {number} dataIndex 数据索引
      */
-    onHandleEditClick(text, record, index, dataIndex) {
-        // console.log(text);
-        // console.log(record);
-        // console.log(index + "***" + dataIndex);
-        let data = [];
-        data = this.props.dataToShow.filter((item) => { return dataIndex === item.index });
+    onHandleEditClick(dataIndex) {
+        let data = this.props.dataToShow.filter((item) => { return dataIndex === item.index });
         this.props.editData("edit", data[0]);
     }
 
     render() {
         const { Column } = Table;
         const data = this.props.dataToShow.slice();
-
+        // 配置课程筛选属性
         const filterCourse = {
             filters: [
                 {
@@ -47,6 +52,7 @@ class DataList extends React.Component {
             ],
             onFilter: (value, record) => record.courses.indexOf(value) !== -1,
         }
+        // 配置角色筛选属性
         const filterRole = {
             filters: [
                 {
@@ -58,16 +64,16 @@ class DataList extends React.Component {
                     value: '学生',
                 },
             ],
-
             onFilter: (value, record) => record.role.indexOf(value) !== -1,
         }
-        
+        // 配置分页属性
         const pagination = {
             showQuickJumper: true,
             showSizeChanger: true,
+            defaultPageSize: 5,
             pageSizeOptions: ['5', '10', '20'],
             showTotal: function (total) {
-                return "共" + data.length + "条  " + "筛选出" + total + "条";
+                return "共" + data.length + "条  筛选出" + total + "条";
             },
         };
         return (
@@ -85,10 +91,10 @@ class DataList extends React.Component {
                             title="操作"
                             key="action"
                             align="center"
-                            render={(text, record, index) => (
+                            render={(text, record) => (
                                 <div className="operation">
-                                    <Button key="edit" onClick={this.onHandleEditClick.bind(this, text, record, index, record.index)} disabled={this.props.disabled}>编辑</Button>
-                                    <Button key="delete" onClick={this.onHandleDelClick.bind(this, record.index)} disabled={this.props.disabled}>删除</Button>
+                                    <Button key="edit" onClick={this.onHandleEditClick.bind(this, record.index)}>编辑</Button>
+                                    <Button key="delete" onClick={this.onHandleDelClick.bind(this, record.index)}>删除</Button>
                                 </div>
                             )}
                         />

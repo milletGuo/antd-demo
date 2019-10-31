@@ -2,18 +2,17 @@ import React from 'react';
 import '../index.css';
 import TableTools from './TableTools';
 import DataList from './DataList';
-import EditDataForm from './EditData';
+import EditData from './EditData';
 
 class DataTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false,
-            status: '',
+            visible: false,          // 是否显示编辑组件
+            status: '',              // 编辑组件状态
             dataLists: [],           // localStorage中的数据
             queryResult: [],         // 需要在表格中展示的数据
-            dataToEdit: {},
-            disabled: false,
+            dataToEdit: {},          // 需要编辑的数据
         }
     }
 
@@ -41,7 +40,6 @@ class DataTable extends React.Component {
             visible: true,
             status: status,
             dataToEdit: data,
-            disabled: true,
         });
     }
 
@@ -53,7 +51,6 @@ class DataTable extends React.Component {
             visible: false,
             status: "",
             dataToEdit: "",
-            disabled: false,
         });
     }
 
@@ -94,8 +91,8 @@ class DataTable extends React.Component {
         return (
             <div className="tableBox" >
                 <TableTools data={this.state.dataLists} create={this.openDialog.bind(this)} query={this.updateData.bind(this)} />
-                <DataList dataToShow={this.state.queryResult} editData={this.openDialog.bind(this)} delData={this.delData.bind(this)} disabled={this.state.disabled} />
-                <EditDataForm visible={this.state.visible} dataToEdit={this.state.dataToEdit} data={this.state.dataLists} status={this.state.status} close={this.closeDialog.bind(this)} submit={this.updateData.bind(this)} />
+                <DataList dataToShow={this.state.queryResult} editData={this.openDialog.bind(this)} delData={this.delData.bind(this)} />
+                <EditData visible={this.state.visible} dataToEdit={this.state.dataToEdit} data={this.state.dataLists} status={this.state.status} close={this.closeDialog.bind(this)} submit={this.updateData.bind(this)} />
             </div>
         );
     }

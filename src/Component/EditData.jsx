@@ -75,7 +75,9 @@ class EditData extends React.Component {
             });
             this.props.submit("edit", dataLists);
         }
+        // 清空表单域
         this.props.form.resetFields();
+        this.setState({ teacherDiv: '', studentDiv: '', });
         this.props.close();
     }
 
@@ -126,21 +128,28 @@ class EditData extends React.Component {
                 };
                 break;
             default:
+                data = {
+                    teacherDiv: this.state.teacherDiv ? this.state.teacherDiv : 'block',
+                    studentDiv: this.state.studentDiv ? this.state.studentDiv : 'none',
+                };
         }
         return (
             <div>
-                <Modal title="编辑数据" visible={this.props.visible} onCancel={this.props.close} width={540} footer={[<Button key="submit" onClick={this.handleSubmit.bind(this)}>确定</Button>]}>
+                <Modal title={(this.props.status === "create" ? "新建" : "编辑") + "数据"} visible={this.props.visible} onCancel={this.props.close} width={540} footer={[<Button key="submit" onClick={this.handleSubmit.bind(this)}>确定</Button>]}>
                     <Form {...formItemLayout}>
                         <Form.Item label="姓名：">
                             {getFieldDecorator('name', {
-                                rules: [{ required: true, message: '请输入正确的姓名!' }],
+                                rules: [
+                                    { required: true, message: '姓名不能为空!' },
+                                    { pattern: /^[\u4e00-\u9fa5]{2,4}$/, message: '请输入2~4位中文' }
+                                ],
                                 initialValue: data.name,
                             })(
-                                <Input placeholder="请输入姓名" />,
+                                <Input placeholder="请输入姓名" autoComplete="off" />,
                             )}
                         </Form.Item>
                         <Form.Item label="性别：">
-                            {getFieldDecorator('sex', { initialValue: data.sex, })(
+                            {getFieldDecorator('sex', { initialValue: data.sex ? data.sex : "男", })(
                                 <Select>
                                     <Option value="男">男</Option>
                                     <Option value="女">女</Option>
@@ -149,29 +158,32 @@ class EditData extends React.Component {
                         </Form.Item>
                         <Form.Item label="年龄：">
                             {getFieldDecorator('age', {
-                                rules: [{ required: true, message: '请输入正确的年龄!' }],
+                                rules: [
+                                    { required: true, message: '年龄不能为空!' },
+                                    { pattern: /^(?:[1-9][0-9]?|1[01][0-9]|120)$/, message: '请输入正确的年龄' }
+                                ],
                                 initialValue: data.age,
                             })(
-                                <Input placeholder="请输入年龄" />,
+                                <Input placeholder="请输入年龄" autoComplete="off" />,
                             )}
                         </Form.Item>
                         <Form.Item label="角色：">
-                            {getFieldDecorator('role', { initialValue: data.role, })(
+                            {getFieldDecorator('role', { initialValue: data.role ? data.role : "教师", })(
                                 <Select onChange={this.handleChange.bind(this)}>
                                     <Option value="教师">教师</Option>
                                     <Option value="学生">学生</Option>
-                                </Select >,
+                                </Select >
                             )}
                         </Form.Item>
                     </Form>
                     <TeacherInfo display={data.teacherDiv} teacherInfo={data.teacherInfo} getFieldDecorator={getFieldDecorator} />
                     <StudentInfo display={data.studentDiv} studentInfo={data.studentInfo} getFieldDecorator={getFieldDecorator} />
                 </Modal>
-            </div>
+            </div >
         );
     }
 }
 
-const EditDataForm = Form.create({ name: 'edit_data' })(EditData);
+EditData = Form.create({ name: 'edit_data' })(EditData);
 
-export default EditDataForm;
+export default EditData;

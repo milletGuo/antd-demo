@@ -5,12 +5,14 @@ import '../index.css';
 class TeacherInfo extends React.Component {
 
     render() {
+        
         const data = this.props.studentInfo ? this.props.studentInfo : '';
         const getFieldDecorator = this.props.getFieldDecorator;
         const formItemLayout = {
             labelCol: { span: 4 },
             wrapperCol: { span: 12 },
         };
+
         return (
             <div style={{ display: this.props.display }}>
                 <Form {...formItemLayout}>
